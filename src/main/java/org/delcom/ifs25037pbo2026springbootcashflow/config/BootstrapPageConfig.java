@@ -21,15 +21,19 @@ public class BootstrapPageConfig implements VaadinServiceInitListener {
     static final String PLACEHOLDER_ID = "cashflow-boot";
 
     /**
-     * 1) Placeholder disembunyikan secara visual tetapi tetap terbaca screen reader (bukan display:none).
+     * 1) Placeholder berupa lapisan tetap (position:fixed) berisi judul, langsung terlihat saat HTML pertama
+     *    dimuat sehingga FCP/Speed Index tidak menunggu JavaScript Vaadin. Karena fixed, ia tidak menggeser
+     *    layout (CLS tetap 0).
      * 2) Setelah view dirender (ada vaadin-vertical-layout[role=main]), placeholder dimatikan agar hanya ada
      *    satu landmark main dan satu h1.
-     * 3) Bar "loading" bawaan Vaadin ditambahkan ke body di luar landmark; selama loading disembunyikan. Perlu !important karena Vaadin menyuntikkan
-     *    style sendiri (vaadin-connection-indicator[popover]{display:contents}) ke head setelah style ini.
+     * 3) Bar "loading" bawaan Vaadin ditambahkan ke body di luar landmark; selama loading disembunyikan. Perlu
+     *    !important karena Vaadin menyuntikkan style sendiri (vaadin-connection-indicator[popover]{display:contents})
+     *    ke head setelah style ini.
      */
     static final String CSS =
-            "#" + PLACEHOLDER_ID + "{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;"
-                    + "overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}"
+            "#" + PLACEHOLDER_ID + "{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;box-sizing:border-box;"
+                    + "padding:1rem 1.5rem;background:#fff;color:#1f2937;font-family:system-ui,sans-serif}"
+                    + "#" + PLACEHOLDER_ID + " h1{margin:0;font-size:2rem;line-height:1.2}"
                     + "body:has(vaadin-vertical-layout[role='main']) #" + PLACEHOLDER_ID + "{display:none}"
                     + "vaadin-connection-indicator[loading]{display:none !important}";
 

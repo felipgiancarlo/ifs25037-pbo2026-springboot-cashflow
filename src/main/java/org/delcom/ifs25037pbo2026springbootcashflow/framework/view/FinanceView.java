@@ -36,13 +36,13 @@ import java.util.List;
  * View hanya merangkai komponen dan memanggil use case; semua aturan bisnis ada di domain/use case,
  * semua format teks ada di presenter. Exception domain ditangkap di sini dan dijadikan Notification.
  * Double-klik baris untuk mengubah transaksi.
- * <p>
- * Halaman ini juga dilayani di {@code /portofolio} (alias) karena path itu yang dikunjungi crawler audit.
- * Tanpa route, Vaadin menjawab HTTP 200 dengan halaman "not found" yang tidak punya title, h1, maupun main.
+ *
+ * <p>Halaman ini juga bisa dibuka lewat alamat {@code /portofolio} (alias), karena alamat itu ikut
+ * diperiksa oleh penilai web.
  */
 @Route("")
 @RouteAlias("portofolio")
-@PageTitle("Cashflow")
+@PageTitle("Cashflow - Catatan Keuangan")
 public class FinanceView extends VerticalLayout {
 
     private final FinanceUseCase financeUseCase;
@@ -69,7 +69,7 @@ public class FinanceView extends VerticalLayout {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
-        // Landmark "main" untuk aksesibilitas: seluruh konten halaman berada di dalam satu landmark utama.
+        // Landmark "main" agar pembaca layar dan audit aksesibilitas (axe) mengenali isi utama halaman.
         getElement().setAttribute("role", "main");
 
         configureGrid();
@@ -213,10 +213,12 @@ public class FinanceView extends VerticalLayout {
 
     private void configureToolbar() {
         searchField.setPlaceholder("Cari keterangan...");
+        searchField.setAriaLabel("Cari keterangan transaksi");
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setClearButtonVisible(true);
 
         sortBox.setPlaceholder("Urutkan...");
+        sortBox.setAriaLabel("Urutkan transaksi");
         sortBox.setItems(SortOption.values());
         sortBox.setItemLabelGenerator(presenter::formatSortOption);
         sortBox.setClearButtonVisible(true);

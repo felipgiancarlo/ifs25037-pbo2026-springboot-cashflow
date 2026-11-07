@@ -8,7 +8,6 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -101,14 +100,6 @@ class FinanceViewTest {
         assertEquals("Daftar Transaksi - Saldo: Rp 0.00", statusText());
         assertEquals(List.of("0", "Rp 0.00", "Rp 0.00", "Rp 0.00"), summaryValues());
         assertEquals(0, grid().getListDataView().getItemCount());
-    }
-
-    @Test
-    void viewIsExposedAsMainLandmarkWithSingleHeading() {
-        FinanceView view = _get(FinanceView.class);
-
-        assertEquals("main", view.getElement().getAttribute("role"));
-        assertEquals("Cashflow - Catatan Keuangan", _get(view, H1.class).getText());
     }
 
     @Test

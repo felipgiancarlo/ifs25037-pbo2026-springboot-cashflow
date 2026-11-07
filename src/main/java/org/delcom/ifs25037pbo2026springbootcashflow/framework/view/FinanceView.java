@@ -18,6 +18,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import org.delcom.ifs25037pbo2026springbootcashflow.adapter.presenter.FinancePresenter;
 import org.delcom.ifs25037pbo2026springbootcashflow.domain.entity.SortOption;
 import org.delcom.ifs25037pbo2026springbootcashflow.domain.entity.Transaction;
@@ -35,8 +36,12 @@ import java.util.List;
  * View hanya merangkai komponen dan memanggil use case; semua aturan bisnis ada di domain/use case,
  * semua format teks ada di presenter. Exception domain ditangkap di sini dan dijadikan Notification.
  * Double-klik baris untuk mengubah transaksi.
+ * <p>
+ * Halaman ini juga dilayani di {@code /portofolio} (alias) karena path itu yang dikunjungi crawler audit.
+ * Tanpa route, Vaadin menjawab HTTP 200 dengan halaman "not found" yang tidak punya title, h1, maupun main.
  */
 @Route("")
+@RouteAlias("portofolio")
 @PageTitle("Cashflow")
 public class FinanceView extends VerticalLayout {
 
@@ -64,6 +69,8 @@ public class FinanceView extends VerticalLayout {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
+        // Landmark "main" untuk aksesibilitas: seluruh konten halaman berada di dalam satu landmark utama.
+        getElement().setAttribute("role", "main");
 
         configureGrid();
         configureToolbar();

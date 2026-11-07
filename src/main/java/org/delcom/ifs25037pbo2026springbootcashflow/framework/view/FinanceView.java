@@ -83,12 +83,10 @@ public class FinanceView extends VerticalLayout {
 
     private HorizontalLayout buildSummaryCards() {
         HorizontalLayout summary = new HorizontalLayout(
-                // Warna aksen dipakai juga sebagai warna teks judul kartu, jadi rasio kontrasnya terhadap
-                // latar kartu harus >= 4.5:1 (WCAG AA): biru 7.15, hijau 6.49, merah 6.80, ungu 5.98.
-                createSummaryCard("Total Transaksi", totalCount, "#DBEAFE", "#1E40AF"),
-                createSummaryCard("Total Pemasukan", incomeTotal, "#DCFCE7", "#166534"),
-                createSummaryCard("Total Pengeluaran", expenseTotal, "#FEE2E2", "#991B1B"),
-                createSummaryCard("Saldo", balanceValue, "#EDE9FE", "#6D28D9")
+                createSummaryCard("Total Transaksi", totalCount, "#DBEAFE", "#1D4ED8"),
+                createSummaryCard("Total Pemasukan", incomeTotal, "#DCFCE7", "#16A34A"),
+                createSummaryCard("Total Pengeluaran", expenseTotal, "#FEE2E2", "#DC2626"),
+                createSummaryCard("Saldo", balanceValue, "#EDE9FE", "#7C3AED")
         );
         summary.setWidthFull();
         summary.setSpacing(true);

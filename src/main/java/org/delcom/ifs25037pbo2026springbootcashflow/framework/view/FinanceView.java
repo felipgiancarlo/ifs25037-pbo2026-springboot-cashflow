@@ -10,7 +10,6 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -205,8 +204,7 @@ public class FinanceView extends VerticalLayout {
     }
 
     private HorizontalLayout createActionButtons(Transaction transaction) {
-        Button deleteButton = new Button("Hapus", VaadinIcon.TRASH.create(),
-                event -> openDeleteDialog(transaction));
+        Button deleteButton = new Button("Hapus", event -> openDeleteDialog(transaction));
         deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_TERTIARY_INLINE);
         return new HorizontalLayout(deleteButton);
     }
@@ -215,7 +213,6 @@ public class FinanceView extends VerticalLayout {
 
     private void configureToolbar() {
         searchField.setPlaceholder("Cari keterangan...");
-        searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setClearButtonVisible(true);
 
         sortBox.setPlaceholder("Urutkan...");
@@ -243,15 +240,13 @@ public class FinanceView extends VerticalLayout {
     }
 
     private HorizontalLayout buildToolbar() {
-        Button searchButton = new Button("Cari", VaadinIcon.SEARCH.create(), event -> searchTransactions());
-        Button refreshButton = new Button("Muat Ulang", VaadinIcon.REFRESH.create(), event -> refreshAll());
+        Button searchButton = new Button("Cari", event -> searchTransactions());
+        Button refreshButton = new Button("Muat Ulang", event -> refreshAll());
 
-        Button incomeButton = new Button("Tambah Pemasukan", VaadinIcon.PLUS.create(),
-                event -> openAddDialog(TransactionType.INCOME));
+        Button incomeButton = new Button("Tambah Pemasukan", event -> openAddDialog(TransactionType.INCOME));
         incomeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SUCCESS);
 
-        Button expenseButton = new Button("Tambah Pengeluaran", VaadinIcon.MINUS.create(),
-                event -> openAddDialog(TransactionType.EXPENSE));
+        Button expenseButton = new Button("Tambah Pengeluaran", event -> openAddDialog(TransactionType.EXPENSE));
         expenseButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
         HorizontalLayout toolbar = new HorizontalLayout(
@@ -275,7 +270,7 @@ public class FinanceView extends VerticalLayout {
         amountField.setWidthFull();
 
         Dialog dialog = new Dialog();
-        Button saveButton = new Button("Simpan", VaadinIcon.CHECK.create(), event -> {
+        Button saveButton = new Button("Simpan", event -> {
             try {
                 Transaction created = income
                         ? financeUseCase.addIncome(descriptionField.getValue(), amountField.getValue())
@@ -307,7 +302,7 @@ public class FinanceView extends VerticalLayout {
         amountField.setWidthFull();
 
         Dialog dialog = new Dialog();
-        Button saveButton = new Button("Simpan", VaadinIcon.CHECK.create(), event -> {
+        Button saveButton = new Button("Simpan", event -> {
             try {
                 financeUseCase.updateTransaction(
                         transaction.getId(), descriptionField.getValue(), amountField.getValue());
@@ -337,7 +332,7 @@ public class FinanceView extends VerticalLayout {
         Paragraph message = new Paragraph("Yakin ingin menghapus " + presenter.format(transaction) + "?");
 
         Dialog dialog = new Dialog();
-        Button confirmButton = new Button("Hapus", VaadinIcon.TRASH.create(), event -> {
+        Button confirmButton = new Button("Hapus", event -> {
             deleteTransaction(transaction);
             dialog.close();
         });
@@ -350,7 +345,7 @@ public class FinanceView extends VerticalLayout {
     /** Merakit dialog standar: judul, isi, lalu tombol Batal + aksi utama, semuanya di badan dialog. */
     private void buildDialog(Dialog dialog, String title, com.vaadin.flow.component.Component body,
                              Button actionButton) {
-        Button cancelButton = new Button("Batal", VaadinIcon.CLOSE.create(), event -> dialog.close());
+        Button cancelButton = new Button("Batal", event -> dialog.close());
 
         HorizontalLayout buttons = new HorizontalLayout(cancelButton, actionButton);
         buttons.setWidthFull();

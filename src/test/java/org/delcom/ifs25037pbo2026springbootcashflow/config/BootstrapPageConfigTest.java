@@ -40,7 +40,7 @@ class BootstrapPageConfigTest {
 
         // text() tidak mengembalikan isi <style> di jsoup, jadi periksa HTML-nya.
         String css = document.head().select("style").outerHtml();
-        assertTrue(css.contains("vaadin-connection-indicator[loading]"));
+        assertTrue(css.contains("vaadin-connection-indicator[loading]{display:none !important}"));
         assertTrue(css.contains("#cashflow-boot"));
         assertTrue(css.contains("[role='main']"));
     }

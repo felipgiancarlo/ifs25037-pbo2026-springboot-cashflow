@@ -24,13 +24,14 @@ public class BootstrapPageConfig implements VaadinServiceInitListener {
      * 1) Placeholder disembunyikan secara visual tetapi tetap terbaca screen reader (bukan display:none).
      * 2) Setelah view dirender (ada vaadin-vertical-layout[role=main]), placeholder dimatikan agar hanya ada
      *    satu landmark main dan satu h1.
-     * 3) Bar "loading" bawaan Vaadin ditambahkan ke body di luar landmark; selama loading disembunyikan.
+     * 3) Bar "loading" bawaan Vaadin ditambahkan ke body di luar landmark; selama loading disembunyikan. Perlu !important karena Vaadin menyuntikkan
+     *    style sendiri (vaadin-connection-indicator[popover]{display:contents}) ke head setelah style ini.
      */
     static final String CSS =
             "#" + PLACEHOLDER_ID + "{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;"
                     + "overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}"
                     + "body:has(vaadin-vertical-layout[role='main']) #" + PLACEHOLDER_ID + "{display:none}"
-                    + "vaadin-connection-indicator[loading]{display:none}";
+                    + "vaadin-connection-indicator[loading]{display:none !important}";
 
     @Override
     public void serviceInit(ServiceInitEvent event) {

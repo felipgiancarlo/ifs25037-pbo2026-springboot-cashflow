@@ -8,15 +8,11 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.SortDirection;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import org.delcom.ifs25037pbo2026springbootcashflow.adapter.presenter.FinancePresenter;
 import org.delcom.ifs25037pbo2026springbootcashflow.adapter.repository.TransactionRepository;
 import org.delcom.ifs25037pbo2026springbootcashflow.domain.entity.SortOption;
@@ -31,7 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.github.mvysny.kaributesting.v10.GridKt._doubleClickItem;
@@ -105,25 +100,6 @@ class FinanceViewTest {
         assertEquals("Daftar Transaksi - Saldo: Rp 0.00", statusText());
         assertEquals(List.of("0", "Rp 0.00", "Rp 0.00", "Rp 0.00"), summaryValues());
         assertEquals(0, grid().getListDataView().getItemCount());
-    }
-
-    @Test
-    void pageHasMainLandmarkLevelOneHeadingAndAccessibleNames() {
-        FinanceView view = _get(FinanceView.class);
-
-        assertEquals("main", view.getElement().getAttribute("role"));
-        assertEquals("Cashflow - Catatan Keuangan", _get(view, H1.class).getText());
-        assertEquals("Cari keterangan transaksi", searchField().getAriaLabel().orElseThrow());
-        assertEquals("Urutkan transaksi", sortBox().getAriaLabel().orElseThrow());
-    }
-
-    @Test
-    void routeTitleAndAliasAreDeclared() {
-        assertEquals("", FinanceView.class.getAnnotation(Route.class).value());
-        assertEquals(List.of("portofolio"), Arrays.stream(FinanceView.class.getAnnotationsByType(RouteAlias.class))
-                .map(RouteAlias::value)
-                .toList());
-        assertEquals("Cashflow - Catatan Keuangan", FinanceView.class.getAnnotation(PageTitle.class).value());
     }
 
     @Test

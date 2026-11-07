@@ -18,7 +18,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import org.delcom.ifs25037pbo2026springbootcashflow.adapter.presenter.FinancePresenter;
 import org.delcom.ifs25037pbo2026springbootcashflow.domain.entity.SortOption;
 import org.delcom.ifs25037pbo2026springbootcashflow.domain.entity.Transaction;
@@ -36,13 +35,9 @@ import java.util.List;
  * View hanya merangkai komponen dan memanggil use case; semua aturan bisnis ada di domain/use case,
  * semua format teks ada di presenter. Exception domain ditangkap di sini dan dijadikan Notification.
  * Double-klik baris untuk mengubah transaksi.
- *
- * <p>Halaman ini juga bisa dibuka lewat alamat {@code /portofolio} (alias), karena alamat itu ikut
- * diperiksa oleh penilai web.
  */
 @Route("")
-@RouteAlias("portofolio")
-@PageTitle("Cashflow - Catatan Keuangan")
+@PageTitle("Cashflow")
 public class FinanceView extends VerticalLayout {
 
     private final FinanceUseCase financeUseCase;
@@ -69,8 +64,6 @@ public class FinanceView extends VerticalLayout {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
-        // Landmark "main" agar pembaca layar dan audit aksesibilitas (axe) mengenali isi utama halaman.
-        getElement().setAttribute("role", "main");
 
         configureGrid();
         configureToolbar();
@@ -213,12 +206,10 @@ public class FinanceView extends VerticalLayout {
 
     private void configureToolbar() {
         searchField.setPlaceholder("Cari keterangan...");
-        searchField.setAriaLabel("Cari keterangan transaksi");
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setClearButtonVisible(true);
 
         sortBox.setPlaceholder("Urutkan...");
-        sortBox.setAriaLabel("Urutkan transaksi");
         sortBox.setItems(SortOption.values());
         sortBox.setItemLabelGenerator(presenter::formatSortOption);
         sortBox.setClearButtonVisible(true);
